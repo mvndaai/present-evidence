@@ -4,6 +4,9 @@ import '../../../core/models/evidence.dart';
 import '../../../core/models/highlight.dart';
 import '../../evidence/providers/evidence_provider.dart';
 
+/// Default aspect ratio used for the zoom-region preview canvas.
+const _kPreviewAspectRatio = 16.0 / 9.0;
+
 /// Allows the user to drag-select a rectangular zoom region over a preview.
 class ZoomRegionSelector extends ConsumerStatefulWidget {
   const ZoomRegionSelector({
@@ -77,26 +80,26 @@ class _ZoomRegionSelectorState extends ConsumerState<ZoomRegionSelector> {
 
     return evidenceAsync.when(
       loading: () => const AspectRatio(
-        aspectRatio: 16 / 9,
+        aspectRatio: _kPreviewAspectRatio,
         child: Center(child: CircularProgressIndicator()),
       ),
       error: (_, __) => const AspectRatio(
-        aspectRatio: 16 / 9,
+        aspectRatio: _kPreviewAspectRatio,
         child: Center(child: Icon(Icons.image_not_supported)),
       ),
       data: (evidence) {
         final urlAsync = ref.watch(evidenceUrlProvider(evidence));
         return urlAsync.when(
           loading: () => const AspectRatio(
-            aspectRatio: 16 / 9,
+            aspectRatio: _kPreviewAspectRatio,
             child: Center(child: CircularProgressIndicator()),
           ),
           error: (_, __) => const AspectRatio(
-            aspectRatio: 16 / 9,
+            aspectRatio: _kPreviewAspectRatio,
             child: Center(child: Icon(Icons.image_not_supported)),
           ),
           data: (url) => AspectRatio(
-            aspectRatio: 16 / 9,
+            aspectRatio: _kPreviewAspectRatio,
             child: LayoutBuilder(
               builder: (context, constraints) {
                 _boxSize = Size(constraints.maxWidth, constraints.maxHeight);

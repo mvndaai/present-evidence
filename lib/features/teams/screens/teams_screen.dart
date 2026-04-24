@@ -57,7 +57,9 @@ class TeamsScreen extends ConsumerWidget {
               return Card(
                 child: ListTile(
                   leading: CircleAvatar(
-                    child: Text(team.name.substring(0, 1).toUpperCase()),
+                    child: Text(team.name.isEmpty
+                        ? '?'
+                        : team.name.substring(0, 1).toUpperCase()),
                   ),
                   title: Text(team.name),
                   trailing: const Icon(Icons.chevron_right),

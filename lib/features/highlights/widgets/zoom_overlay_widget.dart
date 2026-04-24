@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../core/models/highlight.dart';
 
+/// Minimum pixel dimension (width or height) for a zoom region before clamping.
+const _kMinRegionDimension = 1.0;
+
 /// Displays a full-screen content (image, pdf page frame, etc.) with a dimmed
 /// overlay and a zoomed-in inset view of the highlighted region.
 ///
@@ -29,8 +32,8 @@ class ZoomOverlayWidget extends StatelessWidget {
 
         // Zoomed rect in pixels
         final rect = zoomRegion.toRect(size);
-        final regionW = rect.width.clamp(1.0, size.width);
-        final regionH = rect.height.clamp(1.0, size.height);
+        final regionW = rect.width.clamp(_kMinRegionDimension, size.width);
+        final regionH = rect.height.clamp(_kMinRegionDimension, size.height);
 
         // Scale factor to fill a reasonable portion of screen
         final scaleX = size.width * 0.6 / regionW;

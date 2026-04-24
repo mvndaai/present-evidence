@@ -162,10 +162,14 @@ class _HighlightEditorScreenState
         ),
         const SizedBox(height: 16),
         if (_zoomRegion != null)
-          TextButton.icon(
-            onPressed: () => setState(() => _zoomRegion = null),
-            icon: const Icon(Icons.clear),
-            label: const Text('Clear Zoom Region'),
+          Tooltip(
+            message:
+                'Remove the zoom region from this highlight',
+            child: TextButton.icon(
+              onPressed: () => setState(() => _zoomRegion = null),
+              icon: const Icon(Icons.clear),
+              label: const Text('Clear Zoom Region'),
+            ),
           ),
 
         const SizedBox(height: 32),

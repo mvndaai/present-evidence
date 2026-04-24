@@ -6,15 +6,27 @@ import 'app.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  const supabaseUrl = String.fromEnvironment(
+    'SUPABASE_URL',
+    defaultValue: '',
+  );
+  const supabaseAnonKey = String.fromEnvironment(
+    'SUPABASE_ANON_KEY',
+    defaultValue: '',
+  );
+
+  assert(
+    supabaseUrl.isNotEmpty && !supabaseUrl.contains('YOUR_PROJECT'),
+    'SUPABASE_URL must be set via --dart-define=SUPABASE_URL=https://...',
+  );
+  assert(
+    supabaseAnonKey.isNotEmpty && !supabaseAnonKey.contains('YOUR_ANON'),
+    'SUPABASE_ANON_KEY must be set via --dart-define=SUPABASE_ANON_KEY=...',
+  );
+
   await Supabase.initialize(
-    url: const String.fromEnvironment(
-      'SUPABASE_URL',
-      defaultValue: 'https://YOUR_PROJECT.supabase.co',
-    ),
-    anonKey: const String.fromEnvironment(
-      'SUPABASE_ANON_KEY',
-      defaultValue: 'YOUR_ANON_KEY',
-    ),
+    url: supabaseUrl.isEmpty ? 'https://placeholder.supabase.co' : supabaseUrl,
+    anonKey: supabaseAnonKey.isEmpty ? 'placeholder' : supabaseAnonKey,
   );
 
   runApp(

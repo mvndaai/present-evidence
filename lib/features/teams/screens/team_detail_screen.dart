@@ -44,11 +44,14 @@ class TeamDetailScreen extends ConsumerWidget {
                 child: ListTile(
                   leading: CircleAvatar(
                     child: Text(
-                      (member.user?.displayName ??
-                              member.user?.email ??
-                              '?')
-                          .substring(0, 1)
-                          .toUpperCase(),
+                      () {
+                        final raw = member.user?.displayName ??
+                            member.user?.email ??
+                            '?';
+                        return raw.isEmpty
+                            ? '?'
+                            : raw.substring(0, 1).toUpperCase();
+                      }(),
                     ),
                   ),
                   title: Text(

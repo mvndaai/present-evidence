@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import '../providers/presentation_provider.dart';
 import '../../auth/providers/auth_provider.dart';
 
@@ -128,7 +129,7 @@ class PresentationsScreen extends ConsumerWidget {
   }
 
   String _formatDate(DateTime dt) {
-    return '${dt.month}/${dt.day}/${dt.year}';
+    return DateFormat.yMd().format(dt);
   }
 
   void _showCreateDialog(BuildContext context, WidgetRef ref) {
